@@ -6,7 +6,7 @@ Subquestions:
 2. Does traveling correlate with reduced performance especially pit stops and average laptimes compared to race winners laptime(percentage difference from the race winner’s average lap time)?
 
 
-## How I Will Test It
+## Methodology:
 
 1. **Create variables:**
    - `back_to_back_flag`: whether the race happened in the upcoming weekend.  
