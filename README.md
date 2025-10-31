@@ -55,13 +55,14 @@ Custom metrics: I am planning to calculate the distances by getting the informat
 3. **Comparision**
 
    -Compare how teams performed in the last week and the current week compared to the race winner. How much mistakes they made in terms of mechanical or DNFs.
+   
    -Compare how teams with differently located factories performed compared to eachother.
 
-4. **Look for correlations:**
+5. **Look for correlations:**
    - Checking if higher traveling distance or continent changes correspond to worse relative performance.  
    - Observe whether shorter gaps between races lead to more DNFs.
 
-5. **Conclusion:**
+6. **Conclusion:**
    - Determine if teams show measurable performance drops or reliability issues during back-to-back and high-travel races.
    - Determine if teams with furtherly located factories performed poorer.
 
