@@ -2,14 +2,26 @@
 ## Does Being a World Driver Champion correlates with wet race performances and outperforming teammates?
 
 ## Terminology 
+
 Wet Races: It means during the race the rain affected the track.
 
 Dry Races: No rain during the races or the rain didn't affected the rain.
 
 WDC: World Driver Champion.
 
+Champion: Driver who has at least 1 WDC.
+
+Non-champion: Driver who has no WDC.
+
 Grid: It refers to the whole drivers during a race or season.
 
+Wet win rate: Number of wet wins divided by number of total races in wet
+
+Finishing Position: Final position of the driver.
+
+DNF: Does not finished
+
+Teammate Battle: Basically in every team there are 2 drivers and one finishes better than the other.
 
 ## Motivation
 F1 is among the one the most popular sports around the world and as a fan of this sport I always wondered what metric makes a champion a champion.
@@ -101,6 +113,11 @@ Custom metrics: I double checked the weather data to make sure whether the rain 
 4.**Conclusion** 
    
    - Determine if there is a real correlation or not by using the all p_values.
+
+Outcome for hypothesis 2:
+
+   -I have observed there is a real relationship between being a champion and wet race win rates. Also it correlates with more number of championships meant more percentage of races you win in the wet conditions.
+
 
 ## Methodology For further works:
    
