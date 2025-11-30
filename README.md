@@ -1,72 +1,90 @@
-# DSA 210 Project: Analysis of Logistics and The Car's Performance in F1
-## Does Workload of Logistics in the F1 Affect The Teams' Performances and Reliability?
-
-Subquestions:
-1. Are DNFs more frequent when races occur on consecutive weekends?
-2. Does traveling correlate with reduced performance especially pit stops and average laptimes compared to race winners laptime(percentage difference from the race winner’s average lap time)?
+# DSA 210 Project: Analysis of Champion Drivers and Their Specific Features
+## Does Being a World Driver Champion correlates with wet race performances and outperforming teammates?
 
 ## Terminology 
-Pit stops: In F1 in a general sense a pit stop is a pause for new tyres, repairs, mechanical adjustments, as a penalty, or any combination of the above.
-Laptime: Laptime is the time interval that a car completed one circulation around the track.
-DNF: DNF stands for 'Did Not Finish'. The reason might vary like mechanical error or driver error etc.
-Mechanical Error: A type of error caused by the malfunction or breakdown of a car component.
+Wet Races: It means during the race the rain affected the track.
 
+Dry Races: No rain during the races or the rain didn't affected the rain.
+
+WDC: World Driver Champion.
+
+Grid: It refers to the whole drivers during a race or season.
 
 
 ## Motivation
-F1 is among the one the most popular sports around the world and as a fan of this sport I was always fascinated by how are cars, crews and car parts are moving around the world, sometimes switching continents, from one week to another and still all the teams perform at the top under all that workload. 
+F1 is among the one the most popular sports around the world and as a fan of this sport I always wondered what metric makes a champion a champion.
 
-This study will investigate whether the logistics and workload comes with it affect the F1 teams' performance throughout the racing weekends. Specifically, If the logistics and workload of the back to back weekends affect the teams performances by the laptimes and mechanical problems with the help of the data science methods.
+In this project I will try to investigate metrics that affect championship rates. More specifically, does outperforming your teammate show correlation with being a champion and does being a good driver in wet show correlation with being a champion. I would consider these two since drivers who share the same car could perform similarly and I believe it is the most important metric for a champion to outperform their teammate because basically the drivers who share a team also share a car so they are in equal conditions. Also wet races always believed to measure the driving ability more so I'd be checking if being better in wet correlates with being a champion furthermore being more champion.
 
 ## Hypothesis
-Null Hypothesis (H₀): The workload of the logistics does not affect the F1 teams' performances and reliability.
+Null Hypothesis (H₀): Being World Driver Champion (WDC)  has no effect on how much they outperform their teammate.
 
-Alternative Hypothesis (H₁): Teams perform worse and experience more mechanical issues during back-to-back weekends.
+Alternative Hypothesis (H₁): Being a WDC means outperforming your teammates more across the career.
+Sub Hypothesis (H₁): Being more WDC means outperforming your teammates more across the career. (more championship more outperforming)
 
-H₂: Teams with factories located farther from the race circuit performed worse during consecutive or long-distance race weekends.
+Alternative Hypothesis No.2 (H₂): Champion drivers perform better in wet conditions than non-champions, and more championships correlates with more win-rate in wet races.
 
 ## Data Sources
 
 **Data Preparation:** Collect lap times, pit stops, DNFs, and race dates for the 2021–2024 seasons using the FastF1 and Jolpica APIs. Compare it within each other. Sort what is the cause of deviations in laptime, pitstop time (whether it is related to driver error or not) and collect the cause of DNFs.
 
-For laptimes of each driver and DNFs: [FastF1 Library](https://theoehrly.github.io/Fast-F1/)
+For race results, race calendar, driver names: [Kaggle F1 Data](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
 
-For pitstop times and DNFs: [Kaggle F1 Data](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
+For weather data: [Kaggle F1 Weather Data](https://www.kaggle.com/datasets/mariyakostyrya/formula-1-weather-info-1950-2024)
 
-For race calendar and circuit coordinates: [Jolpica F1 API](https://api.jolpi.ca/)
+For number of championships:[Wikipedia F1 page](https://en.wikipedia.org/wiki/List_of_Formula_One_World_Drivers%27_Champions)
 
-For how are the things are moving: [DHL Information Page](https://inmotion.dhl/en/formula-1)
+Custom metrics: I double checked the weather data to make sure whether the rain affected the race or not. I come up with a full list of wet races between 1985-2024 simply by checking them one by one. Then compared to the other online sources like reddit pages.
 
-Custom metrics: I am planning to calculate the distances by getting the information from DHL page and calculate the distances for each transportation method (freight trains, trucks or freight planes) and estimate their times from each factory.
+## Methodology For Alternative Hypothesis 1:
 
+1. **Get all race data with wet race information:**
+   -I merged all the result results.csv and used the wet race dictionary to tag them as wet races.
 
-## Methodology:
-
-1. **Create variables:**
-   - `travel_distance_km`: distance teams travel between races (it varies whether if the team goes from the factory or from one race circuit to another)
-   - `relative_laptime_diff`: team’s average lap time compared to the winner’s (as a % difference).  
-   - `dnf_rate`: percentage of cars from a team that didn’t finish a race.  
-   - `avg_pitstop_time`: average pit stop time per team.
-   - `back_to_back_flag`: whether the race happened in the upcoming weekend.  
-
-2. **Normalize performance:**
-   -Since tracks are different I will be comparing lap times relatively to the race winner instead of raw laptimes.
+2. **Get the merged finishing positions for all races and each driver:**
+   -I merged all the results for all races and each driver and also added the driver name and constructor name so if they share the same constructor in the same race then these drivers are teammates.
    
-3. **Comparision**
+3. **Calculations:**
+   -I used the the merged data set to calculate for whether a driver beat their teammate or not for each race by simply comparing finishing positions for each race.
+   -Then I calculated total number of times they beat their teammate and divided it with total number of races they went on.
+   -I applied minimum 5 races limit since driver who had less than 5 races most probably weren't good enough to stay on F1 for even a full season. So basically cleared out outliers but didn't want to lost limited number of drivers.
+   -Group the champions and non-champion drivers using the dictionary of WDCs. Then in order to compare these 2 groups I applied Mann-Whitney U test and calculate p_value.
+   -Apply pearson and spearman correlation tests to see whether there is a direct relationship between number of WDC and outperforming your teammate more (without including non-champion drivers).
 
-   -Compare how teams performed in the last week and the current week compared to the race winner. How much mistakes they made in terms of mechanical or DNFs.
+4. **Look for correlations:**
+   - Checking if WDC drivers outperformed their teammate more than non-champion drivers. 
+   - Checking if higher number of championship meant more races outperforming your teammate.  
+   - Observe whether it applied amongst the only championships too. If it does then there is a real correlation.
+
+5. **Conclusion:**
+   - Determine if there is a real correlation or not by using the all p_values from each test applied(Spearman, Mann-Whitney U test, Pearson).
+
+
+6. **Outcome for hypothesis 1:**
+   - I have observed there is a real relationship between being a champion and outperforming your teammate. Also it correlates with more number of championships meant more percentage of races you outperform your teammate.
+
+## Methodology For Alternative Hypothesis 2:
+
+1.**Getting the data:**
+   - Using the already merged dataset in hypothesis 1.
    
-   -Compare how teams with differently located factories performed compared to eachother.
+2.**Calculations:**
+   - Simply calculating the number of wins for each driver in wet races. If they finished in position "1" they won the race and applying it to only wet races.
+   - Calculate wet win rates for each driver.
+   - Compare champion and non-champion drivers.
+   
+3.**Look for correlations:**
+   - Simply apply Pearson, Spearman correlations and t_test. (Applied jittering here since there was a lot of driver who have no championship)
+   - Check for p_values for each test
+   - Apply each test only to the champion driver and read the values again.
+   
+4.**Conclusion** 
+   - Determine if there is a real correlation or not by using the all p_values.
+   - 
+## Methodology For further works:
+   - Could apply machine learning models to calculate possible new champions in the current grid.
+   - Could detect which drivers could've been a wdc in the best.
 
-5. **Look for correlations:**
-   - Checking if higher traveling distance or continent changes correspond to worse relative performance.  
-   - Observe whether shorter gaps between races lead to more DNFs.
-
-6. **Conclusion:**
-   - Determine if teams show measurable performance drops or reliability issues during back-to-back and high-travel races.
-   - Determine if teams with furtherly located factories performed poorer.
-
-
-## Expected Outcome
-I expect to observe if the race is consecutive and long distance travel between races would result in slower average lap times and higher DNF rates.  
-This would suggest that logistics and workload with back-to-back racings has an effect on car performance and reliability.
+## Further Works:
+-I expect to predict who are the possible candidates for new champions for 2025 by simply comparing how they outperformed their teammates and how much they won in wet races across their careers. 
+-I plan to get a list of drivers who was champion level driver but couldn't win any championship.
