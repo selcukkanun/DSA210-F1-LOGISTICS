@@ -20,6 +20,7 @@ In this project I will try to investigate metrics that affect championship rates
 Null Hypothesis (H₀): Being World Driver Champion (WDC)  has no effect on how much they outperform their teammate.
 
 Alternative Hypothesis (H₁): Being a WDC means outperforming your teammates more across the career.
+
 Sub Hypothesis (H₁): Being more WDC means outperforming your teammates more across the career. (more championship more outperforming)
 
 Alternative Hypothesis No.2 (H₂): Champion drivers perform better in wet conditions than non-champions, and more championships correlates with more win-rate in wet races.
