@@ -40,52 +40,76 @@ Custom metrics: I double checked the weather data to make sure whether the rain 
 ## Methodology For Alternative Hypothesis 1:
 
 1. **Get all race data with wet race information:**
+
    -I merged all the result results.csv and used the wet race dictionary to tag them as wet races.
 
 2. **Get the merged finishing positions for all races and each driver:**
+
    -I merged all the results for all races and each driver and also added the driver name and constructor name so if they share the same constructor in the same race then these drivers are teammates.
    
 3. **Calculations:**
+
    -I used the the merged data set to calculate for whether a driver beat their teammate or not for each race by simply comparing finishing positions for each race.
+
    -Then I calculated total number of times they beat their teammate and divided it with total number of races they went on.
+
    -I applied minimum 5 races limit since driver who had less than 5 races most probably weren't good enough to stay on F1 for even a full season. So basically cleared out outliers but didn't want to lost limited number of drivers.
-   -Group the champions and non-champion drivers using the dictionary of WDCs. Then in order to compare these 2 groups I applied Mann-Whitney U test and calculate p_value.
+
+    -Group the champions and non-champion drivers using the dictionary of WDCs. Then in order to compare these 2 groups I applied Mann-Whitney U test and calculate p_value.
+
    -Apply pearson and spearman correlation tests to see whether there is a direct relationship between number of WDC and outperforming your teammate more (without including non-champion drivers).
 
-4. **Look for correlations:**
+5. **Look for correlations:**
+
    - Checking if WDC drivers outperformed their teammate more than non-champion drivers. 
+
    - Checking if higher number of championship meant more races outperforming your teammate.  
+
    - Observe whether it applied amongst the only championships too. If it does then there is a real correlation.
 
-5. **Conclusion:**
+7. **Conclusion:**
+
    - Determine if there is a real correlation or not by using the all p_values from each test applied(Spearman, Mann-Whitney U test, Pearson).
 
 
-6. **Outcome for hypothesis 1:**
+9. **Outcome for hypothesis 1:**
+
    - I have observed there is a real relationship between being a champion and outperforming your teammate. Also it correlates with more number of championships meant more percentage of races you outperform your teammate.
 
 ## Methodology For Alternative Hypothesis 2:
 
 1.**Getting the data:**
+   
    - Using the already merged dataset in hypothesis 1.
    
 2.**Calculations:**
+   
    - Simply calculating the number of wins for each driver in wet races. If they finished in position "1" they won the race and applying it to only wet races.
+   
    - Calculate wet win rates for each driver.
+   
    - Compare champion and non-champion drivers.
    
 3.**Look for correlations:**
+   
    - Simply apply Pearson, Spearman correlations and t_test. (Applied jittering here since there was a lot of driver who have no championship)
+   
    - Check for p_values for each test
+   
    - Apply each test only to the champion driver and read the values again.
    
 4.**Conclusion** 
+   
    - Determine if there is a real correlation or not by using the all p_values.
-   - 
+
 ## Methodology For further works:
+   
    - Could apply machine learning models to calculate possible new champions in the current grid.
+   
    - Could detect which drivers could've been a wdc in the best.
 
 ## Further Works:
+
 -I expect to predict who are the possible candidates for new champions for 2025 by simply comparing how they outperformed their teammates and how much they won in wet races across their careers. 
+
 -I plan to get a list of drivers who was champion level driver but couldn't win any championship.
